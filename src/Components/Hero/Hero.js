@@ -2,43 +2,85 @@ import React from "react";
 import img from "../../Assets/DP.png";
 import "./Hero.css";
 import Typewriter from "typewriter-effect";
-import rings from "../../Assets/pattern-rings.svg";
+
+const techStack = [
+  "React", "Node.js", "TypeScript", "MongoDB",
+  "Next.js", "Tailwind CSS", "Firebase", "Express",
+];
+
 const Hero = () => {
   return (
-    <div className="relative">
-      <img
-        className="absolute -left-56 top-28 -z-50"
-        src={rings}
-        alt=""
-        width="530"
-        height="129"
-      />
-      <div className="grid grid-cols-1 lg:grid-cols-2 items-center">
-        <div className="">
-          <h1 className="text-2xl font-extrabold md:text-5xl my-5">
-            Nice to meet you! I'm
-            <Typewriter
-              options={{
-                strings: ["Farhan Aziz Mukto.", "A Front End Developer."],
-                autoStart: true,
-                loop: true,
-              }}
-            />
+    <section className="hero-section">
+      <div className="hero-grid">
+
+        {/* Left — text */}
+        <div className="hero-text fade-up">
+          {/* Available badge */}
+          <div className="hero-badge">
+            <span className="hero-badge-dot" />
+            <span>Available for work</span>
+          </div>
+
+          <h1 className="hero-heading">
+            Hi, I'm{" "}
+            <span className="hero-name">Farhan Aziz Mukto</span>
+            <br />
+            <span className="hero-typewriter">
+              <Typewriter
+                options={{
+                  strings: [
+                    "MERN Stack Developer.",
+                    "React Developer.",
+                    "Full Stack Developer.",
+                  ],
+                  autoStart: true,
+                  loop: true,
+                }}
+              />
+            </span>
           </h1>
-          <p className="py-6 mb-8">
-            Based in Chittagong Bangladesh, I'm a MERN stack developer
-            passionate about building accessible web apps that users love.
+
+          <p className="hero-bio">
+            Based in Chittagong, Bangladesh. I build fast, accessible web apps
+            — from landing pages to full-stack products. 2+ years of
+            hands-on experience.
           </p>
-          <a
-            href="https://drive.google.com/uc?export=download&id=1Vqm-NUKD3Rl9eu0JJ5jceaJdJ9i6xwiP"
-            className="custom-btn"
-          >
-            DOWNLOAD RESUME
-          </a>
+
+          {/* CTA buttons */}
+          <div className="hero-actions">
+            <a href="#projects" className="hero-btn-primary">
+              View my work
+            </a>
+            <a
+              href="https://drive.google.com/uc?export=download&id=1Vqm-NUKD3Rl9eu0JJ5jceaJdJ9i6xwiP"
+              className="hero-btn-ghost"
+            >
+              Download CV
+            </a>
+          </div>
+
+          {/* Tech stack */}
+          <div className="hero-stack">
+            <p className="hero-stack-label">Tech stack</p>
+            <div className="hero-stack-pills">
+              {techStack.map((tech) => (
+                <span key={tech} className="hero-stack-pill">
+                  {tech}
+                </span>
+              ))}
+            </div>
+          </div>
         </div>
-        <img src={img} alt="Mukto" className="order-first lg:order-last" />
+
+        {/* Right — photo */}
+        <div className="hero-photo-wrap fade-up" style={{ animationDelay: "0.15s" }}>
+          <div className="hero-photo-accent" />
+          <div className="hero-photo-frame">
+            <img src={img} alt="Farhan Aziz Mukto" className="hero-photo-img" />
+          </div>
+        </div>
       </div>
-    </div>
+    </section>
   );
 };
 
