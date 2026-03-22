@@ -1,21 +1,75 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&display=swap");
 
-#html {
-  background-color: #141414;
+@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap");
+
+html,
+body,
+#root {
+  background-color: #0d0d0d;
+  min-height: 100vh;
 }
 
 body {
   margin: 0;
-
   font-family: "Space Grotesk", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  color: #ffffff;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+/* Smooth scrolling for anchor links */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #0d0d0d;
+}
+::-webkit-scrollbar-thumb {
+  background: #2a2a2a;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #4ade80;
+}
+
+/* Reusable button style */
+.custom-btn {
+  font-size: 0.875rem;
+  padding: 8px 16px;
+  border-bottom: 2px solid #4ade80;
+  transition: color 200ms ease;
+  white-space: nowrap;
+}
+
+.custom-btn:hover {
+  color: #4ade80;
+}
+
+/* Full-bleed utility (used in contact/footer sections) */
+.full-bleed {
+  box-shadow: 0 0 0 100vmax #141414;
+  clip-path: inset(0 -100vmax);
+}
+
+/* Animate fade-up on load */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-up {
+  animation: fadeUp 0.5s ease forwards;
 }

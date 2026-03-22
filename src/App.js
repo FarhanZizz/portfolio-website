@@ -1,4 +1,4 @@
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { createBrowserRouter, RouterProvider, ScrollRestoration } from "react-router-dom";
 import "./App.css";
 import Blogs from "./Pages/Blogs";
 import Home from "./Pages/Home";
@@ -11,36 +11,18 @@ function App() {
   const router = createBrowserRouter([
     {
       path: "/",
-      element: <Main></Main>,
+      element: <Main />,
       children: [
-        {
-          path: "/",
-          element: <Home></Home>,
-        },
-        {
-          path: "/projects/1",
-          element: <Project1></Project1>,
-        },
-        {
-          path: "/projects/2",
-          element: <Project2></Project2>,
-        },
-        {
-          path: "/projects/3",
-          element: <Project3></Project3>,
-        },
-        {
-          path: "/blogs",
-          element: <Blogs></Blogs>,
-        },
+        { path: "/", element: <Home /> },
+        { path: "/projects/1", element: <Project1 /> },
+        { path: "/projects/2", element: <Project2 /> },
+        { path: "/projects/3", element: <Project3 /> },
+        { path: "/blogs", element: <Blogs /> },
       ],
     },
   ]);
-  return (
-    <div className="max-w-screen-xl px-6 mx-auto text-white pt-8">
-      <RouterProvider router={router}></RouterProvider>
-    </div>
-  );
+
+  return <RouterProvider router={router} />;
 }
 
 export default App;
