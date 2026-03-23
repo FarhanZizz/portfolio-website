@@ -39,9 +39,10 @@ const About = () => {
             e-commerce, education, and service booking.
           </p>
           <p className="text-white/60 text-base leading-relaxed mb-8">
-            I'm currently studying at Probortok College Chittagong and actively
-            looking for opportunities where I can contribute to real products,
-            grow as an engineer, and work with people who care about quality.
+            I'm currently studying Computer Science at Premiere University
+            Chittagong and actively looking for opportunities where I can
+            contribute to real products, grow as an engineer, and work with
+            people who care about quality.
           </p>
 
           {/* Stats row */}
