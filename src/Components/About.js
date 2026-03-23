@@ -19,12 +19,11 @@ const About = () => {
         {/* Photo */}
         <div className="flex justify-center lg:justify-start">
           <div className="relative">
-            <div className="absolute inset-0 max-w-[300px] rounded-2xl border border-[#4ade80]/15 translate-x-3 translate-y-3" />
-            <div className="relative w-[280px] h-[320px] rounded-2xl overflow-hidden border border-white/[0.08]">
+            <div className="relative  lg:w-[380px] w-[280px] lg:h-[420px] h-[320px] ">
               <img
                 src={img}
                 alt="Farhan Aziz Mukto"
-                className="w-full h-full object-cover object-top"
+                className="w-full h-full object-contain object-center"
               />
             </div>
           </div>
