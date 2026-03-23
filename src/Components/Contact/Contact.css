@@ -1,4 +1,3 @@
-.full-bleed {
-    box-shadow: 0 0 0 100vmax #242424;
-    clip-path: inset(0 -100vmax);
-}
+/* Contact section uses Tailwind utility classes only.
+   The old full-bleed trick is no longer needed as the
+   background is now consistent across the whole page. */
