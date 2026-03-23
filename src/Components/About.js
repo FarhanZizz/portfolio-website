@@ -4,7 +4,7 @@ import img from "../Assets/DP.png";
 const stats = [
   { value: "2+", label: "Years of experience" },
   { value: "3+", label: "Projects shipped" },
-  { value: "5+", label: "Technologies" },
+  { value: "15+", label: "Technologies" },
 ];
 
 const About = () => {

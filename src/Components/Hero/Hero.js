@@ -4,15 +4,18 @@ import "./Hero.css";
 import Typewriter from "typewriter-effect";
 
 const techStack = [
-  "React", "Node.js", "TypeScript", "MongoDB",
-  "Next.js", "Tailwind CSS", "Firebase", "Express",
+  "React",
+  "Next.js",
+  "TypeScript",
+  "Node.js",
+  "MongoDB",
+  "GSAP",
 ];
 
 const Hero = () => {
   return (
     <section className="hero-section">
       <div className="hero-grid">
-
         {/* Left — text */}
         <div className="hero-text fade-up">
           {/* Available badge */}
@@ -22,8 +25,7 @@ const Hero = () => {
           </div>
 
           <h1 className="hero-heading">
-            Hi, I'm{" "}
-            <span className="hero-name">Farhan Aziz Mukto</span>
+            Hi, I'm <span className="hero-name">Farhan Aziz Mukto</span>
             <br />
             <span className="hero-typewriter">
               <Typewriter
@@ -42,8 +44,8 @@ const Hero = () => {
 
           <p className="hero-bio">
             Based in Chittagong, Bangladesh. I build fast, accessible web apps
-            — from landing pages to full-stack products. 2+ years of
-            hands-on experience.
+            from landing pages to full-stack products. 2+ years of hands-on
+            experience.
           </p>
 
           {/* CTA buttons */}
@@ -73,7 +75,10 @@ const Hero = () => {
         </div>
 
         {/* Right — photo */}
-        <div className="hero-photo-wrap fade-up" style={{ animationDelay: "0.15s" }}>
+        <div
+          className="hero-photo-wrap fade-up"
+          style={{ animationDelay: "0.15s" }}
+        >
           <div className="hero-photo-accent" />
           <div className="hero-photo-frame">
             <img src={img} alt="Farhan Aziz Mukto" className="hero-photo-img" />
