@@ -54,7 +54,7 @@ const Hero = () => {
               View my work
             </a>
             <a
-              href="https://drive.google.com/uc?export=download&id=1Vqm-NUKD3Rl9eu0JJ5jceaJdJ9i6xwiP"
+              href="https://drive.google.com/uc?export=download&id=1tT-GzG_npvzJxkbRohCsrMwwN6W67XHn"
               className="hero-btn-ghost"
             >
               Download CV
