@@ -1,5 +1,4 @@
-import React from "react";
-import img from "../../Assets/DP.png";
+import React, { useEffect, useState } from "react";
 import "./Hero.css";
 import Typewriter from "typewriter-effect";
 
@@ -8,17 +7,48 @@ const techStack = [
   "Next.js",
   "TypeScript",
   "Node.js",
-  "MongoDB",
-  "GSAP",
+  "PostgreSQL",
+  "Express.js",
+  "Tailwind CSS",
+  "Supabase",
+];
+
+const codeLines = [
+  { text: "const developer = {", indent: 0, color: "white" },
+  { text: "name: ", indent: 1, color: "purple", value: "'Farhan Aziz Mukto'," },
+  {
+    text: "role: ",
+    indent: 1,
+    color: "purple",
+    value: "'Full Stack Developer',",
+  },
+  { text: "experience: ", indent: 1, color: "purple", value: "'2+ years'," },
+  { text: "stack: [", indent: 1, color: "purple" },
+  { text: "'React'", indent: 2, color: "green", suffix: "," },
+  { text: "'Next.js'", indent: 2, color: "green", suffix: "," },
+  { text: "'TypeScript'", indent: 2, color: "green", suffix: "," },
+  { text: "],", indent: 1, color: "white" },
+  { text: "shipping: ", indent: 1, color: "purple", value: "true," },
+  { text: "};", indent: 0, color: "white" },
 ];
 
 const Hero = () => {
+  const [visibleLines, setVisibleLines] = useState(0);
+
+  useEffect(() => {
+    if (visibleLines < codeLines.length) {
+      const timer = setTimeout(() => {
+        setVisibleLines((v) => v + 1);
+      }, 180);
+      return () => clearTimeout(timer);
+    }
+  }, [visibleLines]);
+
   return (
     <section className="hero-section">
       <div className="hero-grid">
         {/* Left — text */}
         <div className="hero-text fade-up">
-          {/* Available badge */}
           <div className="hero-badge">
             <span className="hero-badge-dot" />
             <span>Available for work</span>
@@ -31,9 +61,9 @@ const Hero = () => {
               <Typewriter
                 options={{
                   strings: [
-                    "MERN Stack Developer.",
-                    "React Developer.",
                     "Full Stack Developer.",
+                    "React Developer.",
+                    "Node.js Developer.",
                   ],
                   autoStart: true,
                   loop: true,
@@ -43,12 +73,12 @@ const Hero = () => {
           </h1>
 
           <p className="hero-bio">
-            Based in Chittagong, Bangladesh. I build fast, accessible web apps
-            from landing pages to full-stack products. 2+ years of hands-on
-            experience.
+            Two years of production experience building, deploying, and
+            maintaining real-world web applications for active businesses. I own
+            projects end to end — database design, backend APIs, and frontend
+            builds.
           </p>
 
-          {/* CTA buttons */}
           <div className="hero-actions">
             <a href="#projects" className="hero-btn-primary">
               View my work
@@ -57,11 +87,10 @@ const Hero = () => {
               href="https://drive.google.com/uc?export=download&id=1tT-GzG_npvzJxkbRohCsrMwwN6W67XHn"
               className="hero-btn-ghost"
             >
-              Download CV
+              Download Resume
             </a>
           </div>
 
-          {/* Tech stack */}
           <div className="hero-stack">
             <p className="hero-stack-label">Tech stack</p>
             <div className="hero-stack-pills">
@@ -74,14 +103,43 @@ const Hero = () => {
           </div>
         </div>
 
-        {/* Right — photo */}
+        {/* Right — terminal */}
         <div
-          className="hero-photo-wrap fade-up"
+          className="hero-terminal-wrap fade-up"
           style={{ animationDelay: "0.15s" }}
         >
-          <div className="hero-photo-accent" />
-          <div className="hero-photo-frame">
-            <img src={img} alt="Farhan Aziz Mukto" className="hero-photo-img" />
+          <div className="terminal-window">
+            <div className="terminal-bar">
+              <span className="terminal-dot terminal-dot-red" />
+              <span className="terminal-dot terminal-dot-yellow" />
+              <span className="terminal-dot terminal-dot-green" />
+              <span className="terminal-title">developer.js</span>
+            </div>
+            <div className="terminal-body">
+              {codeLines.slice(0, visibleLines).map((line, i) => (
+                <div
+                  key={i}
+                  className="terminal-line"
+                  style={{ paddingLeft: `${line.indent * 20}px` }}
+                >
+                  <span className="terminal-line-number">{i + 1}</span>
+                  <span className={`terminal-text terminal-${line.color}`}>
+                    {line.text}
+                  </span>
+                  {line.value && (
+                    <span className="terminal-orange">{line.value}</span>
+                  )}
+                  {line.suffix && (
+                    <span className="terminal-white">{line.suffix}</span>
+                  )}
+                </div>
+              ))}
+              {visibleLines >= codeLines.length && (
+                <div className="terminal-cursor-line">
+                  <span className="terminal-cursor">▍</span>
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </div>
