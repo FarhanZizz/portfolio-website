@@ -5,7 +5,6 @@ import Navbar from "../Components/Navbar/Navbar";
 const Main = () => {
   const { pathname } = useLocation();
 
-  // Scroll to top on every route change
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [pathname]);

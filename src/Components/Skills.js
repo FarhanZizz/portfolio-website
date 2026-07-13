@@ -3,44 +3,19 @@ import React from "react";
 const skillGroups = [
   {
     category: "Frontend",
-    skills: [
-      "React",
-      "Next.js",
-      "TypeScript",
-      "Tailwind CSS",
-      "Redux",
-      "Gsap",
-      "Framer Motion",
-      "React Router",
-      "HTML5",
-      "CSS3",
-    ],
+    skills: ["JavaScript", "TypeScript", "React", "Next.js", "Redux", "GSAP", "Framer Motion", "React Router", "Tailwind CSS"],
   },
   {
     category: "Backend",
-    skills: [
-      "Node.js",
-      "Express.js",
-      "REST APIs",
-      "JWT Authentication",
-      "GraphQL",
-    ],
+    skills: ["Node.js", "Express.js", "GraphQL", "REST APIs"],
   },
   {
-    category: "Database",
-    skills: ["MongoDB", "Mongoose", "PostgreSQL", "Prisma", "Firebase"],
+    category: "Databases",
+    skills: ["PostgreSQL", "Drizzle ORM", "Prisma", "Supabase", "MongoDB", "Mongoose", "Firebase"],
   },
   {
     category: "Tools",
-    skills: [
-      "Git",
-      "GitHub",
-      "Vercel",
-      "Netlify",
-      "Stripe",
-      "EmailJS",
-      "Figma",
-    ],
+    skills: ["Git", "VS Code", "Vercel", "Netlify", "Figma", "Canva"],
   },
 ];
 
