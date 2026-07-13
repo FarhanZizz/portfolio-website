@@ -1,10 +1,32 @@
 import React from "react";
-import img from "../Assets/DP.png";
 
 const stats = [
   { value: "2+", label: "Years of experience" },
-  { value: "3+", label: "Projects shipped" },
-  { value: "15+", label: "Technologies" },
+  { value: "3", label: "Production projects" },
+  { value: "20+", label: "Technologies" },
+];
+
+const timeline = [
+  {
+    year: "2026 – Present",
+    title: "Freelance Full Stack Developer",
+    org: "Delco Water",
+    detail:
+      "Building and maintaining a business management platform in active daily use.",
+  },
+  {
+    year: "2026 – Present",
+    title: "Freelance Full Stack Developer",
+    org: "CrackCU",
+    detail:
+      "Hired for bug fixes and SEO, retained for ongoing feature development.",
+  },
+  {
+    year: "2026 – 2030",
+    title: "B.Sc in Computer Science and Engineering",
+    org: "Premier University, Chittagong",
+    detail: "Studying CSE while running freelance client work in parallel.",
+  },
 ];
 
 const About = () => {
@@ -15,38 +37,23 @@ const About = () => {
       </p>
       <h2 className="text-4xl md:text-5xl font-bold mb-12">About Me</h2>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-        {/* Photo */}
-        <div className="flex justify-center lg:justify-start">
-          <div className="relative">
-            <div className="relative  lg:w-[380px] w-[280px] lg:h-[420px] h-[320px] ">
-              <img
-                src={img}
-                alt="Farhan Aziz Mukto"
-                className="w-full h-full object-contain object-center"
-              />
-            </div>
-          </div>
-        </div>
-
-        {/* Text */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
+        {/* Left — summary + stats */}
         <div>
           <p className="text-white/60 text-base leading-relaxed mb-6">
-            I'm a MERN stack developer based in Chittagong, Bangladesh, with a
-            genuine passion for building web products that are both fast and
-            accessible. I started teaching myself web development over 2 years
-            ago and have since shipped full-stack applications covering
-            e-commerce, education, and service booking.
+            I'm a full stack developer based in Chittagong, Bangladesh, with two
+            years of production experience building, deploying, and maintaining
+            real-world web applications for active businesses. I own projects
+            end to end ,database design, backend APIs, and frontend builds.
           </p>
           <p className="text-white/60 text-base leading-relaxed mb-8">
-            I'm currently studying Computer Science at Premiere University
-            Chittagong and actively looking for opportunities where I can
-            contribute to real products, grow as an engineer, and work with
-            people who care about quality.
+            I'm currently pursuing a B.Sc in Computer Science and Engineering
+            while running freelance client work in parallel. My focus is on
+            shipping software that stays in production and keeps working long
+            after launch.
           </p>
 
-          {/* Stats row */}
-          <div className="grid grid-cols-3 gap-4 mb-8">
+          <div className="grid grid-cols-3 gap-4">
             {stats.map((stat) => (
               <div
                 key={stat.label}
@@ -62,20 +69,37 @@ const About = () => {
             ))}
           </div>
 
-          <div className="flex gap-3">
+          <div className="flex gap-3 mt-8">
             <a
-              href="/#contact"
+              href="#contact"
               className="text-sm font-semibold bg-[#4ade80] text-[#0d0d0d] px-5 py-2.5 rounded-md hover:bg-[#22c55e] transition-colors"
             >
               Get in touch
             </a>
             <a
-              href="https://drive.google.com/uc?export=download&id=1Vqm-NUKD3Rl9eu0JJ5jceaJdJ9i6xwiP"
+              href="https://drive.google.com/uc?export=download&id=1tT-GzG_npvzJxkbRohCsrMwwN6W67XHn"
               className="text-sm text-white/60 px-5 py-2.5 rounded-md border border-white/10 hover:border-white/25 hover:text-white transition-colors"
             >
-              Download CV
+              Download Resume
             </a>
           </div>
+        </div>
+
+        {/* Right — timeline */}
+        <div className="flex flex-col gap-6">
+          {timeline.map((item, i) => (
+            <div key={i} className="relative pl-6 border-l border-white/[0.1]">
+              <span className="absolute -left-[5px] top-1 w-[9px] h-[9px] rounded-full bg-[#4ade80]" />
+              <p className="text-xs text-[#4ade80]/60 mb-1">{item.year}</p>
+              <p className="text-base font-semibold text-white mb-0.5">
+                {item.title}
+              </p>
+              <p className="text-sm text-white/40 mb-2">{item.org}</p>
+              <p className="text-sm text-white/50 leading-relaxed">
+                {item.detail}
+              </p>
+            </div>
+          ))}
         </div>
       </div>
     </section>
