@@ -3,19 +3,14 @@ import React, { useRef, useState } from "react";
 
 const Contact = () => {
   const form = useRef();
-  const [status, setStatus] = useState("idle"); // idle | sending | success | error
+  const [status, setStatus] = useState("idle");
 
   const sendEmail = (e) => {
     e.preventDefault();
     setStatus("sending");
 
     emailjs
-      .sendForm(
-        "service_omtw20j",
-        "template_szdqwbn",
-        form.current,
-        "em4Mkgp4vhRuOsTMo"
-      )
+      .sendForm("service_omtw20j", "template_szdqwbn", form.current, "em4Mkgp4vhRuOsTMo")
       .then(
         () => {
           setStatus("success");
@@ -30,12 +25,8 @@ const Contact = () => {
   };
 
   return (
-    <section
-      id="contact"
-      className="py-20 border-t border-white/5"
-    >
+    <section id="contact" className="py-20 border-t border-white/5">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
-        {/* Left */}
         <div>
           <p className="text-xs text-[#4ade80]/50 uppercase tracking-widest mb-3">
             Let's talk
@@ -46,7 +37,6 @@ const Contact = () => {
             the form and I'll get back to you as soon as possible.
           </p>
 
-          {/* Contact detail */}
           <div className="mt-8 flex flex-col gap-3">
             <a
               href="https://github.com/FarhanZizz/"
@@ -77,12 +67,9 @@ const Contact = () => {
           </div>
         </div>
 
-        {/* Right — form */}
         <form ref={form} onSubmit={sendEmail} className="flex flex-col gap-4">
           <div className="flex flex-col gap-1.5">
-            <label className="text-xs text-white/30 uppercase tracking-wider">
-              Name
-            </label>
+            <label className="text-xs text-white/30 uppercase tracking-wider">Name</label>
             <input
               type="text"
               name="user_name"
@@ -93,9 +80,7 @@ const Contact = () => {
           </div>
 
           <div className="flex flex-col gap-1.5">
-            <label className="text-xs text-white/30 uppercase tracking-wider">
-              Email
-            </label>
+            <label className="text-xs text-white/30 uppercase tracking-wider">Email</label>
             <input
               type="email"
               name="user_email"
@@ -106,9 +91,7 @@ const Contact = () => {
           </div>
 
           <div className="flex flex-col gap-1.5">
-            <label className="text-xs text-white/30 uppercase tracking-wider">
-              Message
-            </label>
+            <label className="text-xs text-white/30 uppercase tracking-wider">Message</label>
             <textarea
               name="message"
               required
@@ -128,14 +111,10 @@ const Contact = () => {
             </button>
 
             {status === "success" && (
-              <span className="text-sm text-[#4ade80]">
-                Message sent successfully!
-              </span>
+              <span className="text-sm text-[#4ade80]">Message sent successfully!</span>
             )}
             {status === "error" && (
-              <span className="text-sm text-red-400">
-                Something went wrong. Try again.
-              </span>
+              <span className="text-sm text-red-400">Something went wrong. Try again.</span>
             )}
           </div>
         </form>
