@@ -36,9 +36,7 @@
   transition: color 200ms ease;
 }
 
-.navbar-logo:hover {
-  color: #4ade80;
-}
+.navbar-logo:hover { color: #4ade80; }
 
 .navbar-links {
   display: none;
@@ -50,9 +48,7 @@
 }
 
 @media (min-width: 768px) {
-  .navbar-links {
-    display: flex;
-  }
+  .navbar-links { display: flex; }
 }
 
 .navbar-link {
@@ -62,10 +58,7 @@
   transition: color 200ms ease;
 }
 
-.navbar-link:hover,
-.navbar-link-active {
-  color: #4ade80;
-}
+.navbar-link:hover, .navbar-link-active { color: #4ade80; }
 
 .navbar-right {
   display: none;
@@ -75,9 +68,7 @@
 }
 
 @media (min-width: 768px) {
-  .navbar-right {
-    display: flex;
-  }
+  .navbar-right { display: flex; }
 }
 
 .navbar-icon {
@@ -87,9 +78,7 @@
   transition: color 200ms ease;
 }
 
-.navbar-icon:hover {
-  color: #ffffff;
-}
+.navbar-icon:hover { color: #ffffff; }
 
 .navbar-hire-btn {
   display: inline-block;
@@ -104,12 +93,8 @@
   margin-left: 0.5rem;
 }
 
-.navbar-hire-btn:hover {
-  background-color: #22c55e;
-  color: #0d0d0d;
-}
+.navbar-hire-btn:hover { background-color: #22c55e; color: #0d0d0d; }
 
-/* Hamburger - mobile only */
 .navbar-hamburger {
   display: flex;
   align-items: center;
@@ -122,17 +107,12 @@
   transition: color 200ms ease;
 }
 
-.navbar-hamburger:hover {
-  color: #ffffff;
-}
+.navbar-hamburger:hover { color: #ffffff; }
 
 @media (min-width: 768px) {
-  .navbar-hamburger {
-    display: none;
-  }
+  .navbar-hamburger { display: none; }
 }
 
-/* Mobile dropdown */
 .navbar-mobile-menu {
   display: flex;
   flex-direction: column;
@@ -150,6 +130,4 @@
   padding: 4px 0;
 }
 
-.navbar-mobile-link:hover {
-  color: #ffffff;
-}
+.navbar-mobile-link:hover { color: #ffffff; }
