@@ -75,7 +75,7 @@ const Hero = () => {
           <p className="hero-bio">
             Two years of production experience building, deploying, and
             maintaining real-world web applications for active businesses. I own
-            projects end to end — database design, backend APIs, and frontend
+            projects end to end ,database design, backend APIs, and frontend
             builds.
           </p>
 
