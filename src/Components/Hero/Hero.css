@@ -37,7 +37,7 @@
   height: 7px;
   border-radius: 50%;
   background-color: #4ade80;
-  animation: pulse 2s infinite;
+  animation: pulseDot 2s infinite;
 }
 
 .hero-badge span:last-child {
@@ -46,36 +46,26 @@
   font-weight: 500;
 }
 
-@keyframes pulse {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.4; }
-}
-
-/* Heading */
+/* Heading — fluid size + tightened tracking as it grows (Apple type rule) */
 .hero-heading {
-  font-size: 2.25rem;
+  font-size: clamp(2rem, 4vw + 1rem, 3rem);
   font-weight: 700;
   line-height: 1.15;
+  letter-spacing: -0.02em;
+  font-optical-sizing: auto;
   margin-bottom: 1.25rem;
   color: #ffffff;
-}
-
-@media (min-width: 768px) {
-  .hero-heading { font-size: 3rem; }
 }
 
 .hero-name { color: #4ade80; }
 
 .hero-typewriter {
-  font-size: 1.5rem;
+  font-size: clamp(1.25rem, 2vw + 0.75rem, 1.875rem);
   font-weight: 500;
   color: rgba(255, 255, 255, 0.55);
   display: block;
   margin-top: 0.25rem;
-}
-
-@media (min-width: 768px) {
-  .hero-typewriter { font-size: 1.875rem; }
+  letter-spacing: -0.005em;
 }
 
 .Typewriter__cursor { color: #4ade80; }
@@ -84,6 +74,7 @@
   font-size: 0.9375rem;
   color: rgba(255, 255, 255, 0.5);
   line-height: 1.75;
+  letter-spacing: 0; /* body text: no negative tracking */
   max-width: 460px;
   margin-bottom: 2rem;
 }
@@ -95,6 +86,8 @@
   margin-bottom: 2.5rem;
 }
 
+/* Buttons — press feedback on top of hover, using a spring-like ease
+   instead of a linear one so it settles rather than snaps */
 .hero-btn-primary {
   font-size: 0.8125rem;
   font-weight: 600;
@@ -103,11 +96,12 @@
   padding: 10px 22px;
   border-radius: 7px;
   text-decoration: none;
-  transition: background-color 200ms ease;
   display: inline-block;
+  transition: transform 100ms ease-out, background-color 200ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .hero-btn-primary:hover { background-color: #22c55e; color: #0d0d0d; }
+.hero-btn-primary:active { transform: scale(0.96); }
 
 .hero-btn-ghost {
   font-size: 0.8125rem;
@@ -117,14 +111,15 @@
   border-radius: 7px;
   border: 1px solid rgba(255, 255, 255, 0.12);
   text-decoration: none;
-  transition: border-color 200ms ease, color 200ms ease;
   display: inline-block;
+  transition: transform 100ms ease-out, border-color 200ms cubic-bezier(0.22, 1, 0.36, 1), color 200ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .hero-btn-ghost:hover {
   border-color: rgba(255, 255, 255, 0.3);
   color: #ffffff;
 }
+.hero-btn-ghost:active { transform: scale(0.96); }
 
 .hero-stack-label {
   font-size: 0.6875rem;
@@ -147,7 +142,7 @@
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 5px;
   padding: 4px 10px;
-  transition: border-color 200ms ease, color 200ms ease;
+  transition: border-color 200ms cubic-bezier(0.22, 1, 0.36, 1), color 200ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .hero-stack-pill:hover {
@@ -233,10 +228,5 @@
 
 .terminal-cursor {
   color: #4ade80;
-  animation: blink 1s step-end infinite;
-}
-
-@keyframes blink {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0; }
+  animation: blinkCursor 1s step-end infinite;
 }
