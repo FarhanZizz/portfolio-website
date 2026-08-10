@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link, NavLink } from "react-router-dom";
+import { motion, AnimatePresence } from "framer-motion";
 import "./Navbar.css";
 
 const GitHubIcon = () => (
@@ -26,34 +27,45 @@ const Navbar = () => {
 
   const closeMenu = () => setMenuOpen(false);
 
+  // Critically damped spring — no overshoot, since this isn't a
+  // momentum-driven gesture (just a tap open/close).
+  const menuSpring = { type: "spring", damping: 28, stiffness: 320 };
+
   return (
     <nav className={`navbar-wrapper ${scrolled ? "navbar-scrolled" : ""}`}>
       <div className="navbar-inner">
-        <Link to="/" className="navbar-logo">farhanzizz</Link>
+        <Link to="/" className="navbar-logo press-feedback">farhanzizz</Link>
 
         <ul className="navbar-links">
-          <li><a href="/#projects" className="navbar-link">Projects</a></li>
-          <li><a href="/#skills" className="navbar-link">Skills</a></li>
-          <li><a href="/#about" className="navbar-link">About</a></li>
-          <li><a href="/#contact" className="navbar-link">Contact</a></li>
+          <li><a href="/#projects" className="navbar-link press-feedback">Projects</a></li>
+          <li><a href="/#skills" className="navbar-link press-feedback">Skills</a></li>
+          <li><a href="/#about" className="navbar-link press-feedback">About</a></li>
+          <li><a href="/#contact" className="navbar-link press-feedback">Contact</a></li>
           <li>
-            <NavLink to="/blogs" className={({ isActive }) => `navbar-link ${isActive ? "navbar-link-active" : ""}`}>
+            <NavLink to="/blogs" className={({ isActive }) => `navbar-link press-feedback ${isActive ? "navbar-link-active" : ""}`}>
               Blog
             </NavLink>
           </li>
         </ul>
 
         <div className="navbar-right">
-          <a href="https://github.com/FarhanZizz/" target="_blank" rel="noreferrer" className="navbar-icon" aria-label="GitHub">
+          <a href="https://github.com/FarhanZizz/" target="_blank" rel="noreferrer" className="navbar-icon press-feedback" aria-label="GitHub">
             <GitHubIcon />
           </a>
-          <a href="https://linkedin.com/in/farhan-zizz" target="_blank" rel="noreferrer" className="navbar-icon" aria-label="LinkedIn">
+          <a href="https://linkedin.com/in/farhan-zizz" target="_blank" rel="noreferrer" className="navbar-icon press-feedback" aria-label="LinkedIn">
             <LinkedInIcon />
           </a>
-          <a href="/#contact" className="navbar-hire-btn">Hire me</a>
+          <a href="/#contact" className="navbar-hire-btn press-feedback">Hire me</a>
         </div>
 
-        <button className="navbar-hamburger" onClick={() => setMenuOpen(!menuOpen)} aria-label="Toggle menu" aria-expanded={menuOpen}>
+        {/* Hamburger — icon morphs instantly on press (response principle),
+            state toggle drives the AnimatePresence below */}
+        <button
+          className="navbar-hamburger press-feedback"
+          onClick={() => setMenuOpen(!menuOpen)}
+          aria-label="Toggle menu"
+          aria-expanded={menuOpen}
+        >
           {menuOpen ? (
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
               <path d="M6 18L18 6M6 6l12 12" />
@@ -68,16 +80,28 @@ const Navbar = () => {
         </button>
       </div>
 
-      {menuOpen && (
-        <div className="navbar-mobile-menu">
-          <a href="/#projects" onClick={closeMenu} className="navbar-mobile-link">Projects</a>
-          <a href="/#skills" onClick={closeMenu} className="navbar-mobile-link">Skills</a>
-          <a href="/#about" onClick={closeMenu} className="navbar-mobile-link">About</a>
-          <a href="/#contact" onClick={closeMenu} className="navbar-mobile-link">Contact</a>
-          <NavLink to="/blogs" onClick={closeMenu} className="navbar-mobile-link">Blog</NavLink>
-          <a href="/#contact" onClick={closeMenu} className="navbar-hire-btn mt-2 text-center">Hire me</a>
-        </div>
-      )}
+      {/* Animated mobile menu — animates height + opacity with a spring,
+          so opening it, then tapping the hamburger again mid-animation,
+          reverses smoothly from wherever it currently is (no snap/jump). */}
+      <AnimatePresence>
+        {menuOpen && (
+          <motion.div
+            className="navbar-mobile-menu"
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={menuSpring}
+            style={{ overflow: "hidden" }}
+          >
+            <a href="/#projects" onClick={closeMenu} className="navbar-mobile-link press-feedback">Projects</a>
+            <a href="/#skills" onClick={closeMenu} className="navbar-mobile-link press-feedback">Skills</a>
+            <a href="/#about" onClick={closeMenu} className="navbar-mobile-link press-feedback">About</a>
+            <a href="/#contact" onClick={closeMenu} className="navbar-mobile-link press-feedback">Contact</a>
+            <NavLink to="/blogs" onClick={closeMenu} className="navbar-mobile-link press-feedback">Blog</NavLink>
+            <a href="/#contact" onClick={closeMenu} className="navbar-hire-btn press-feedback mt-2 text-center">Hire me</a>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </nav>
   );
 };
