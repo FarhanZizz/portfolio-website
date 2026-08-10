@@ -33,14 +33,13 @@ const projects = [
       year: "2026 – Present",
     },
   },
-
   {
     index: "03 / 03",
     title: "Typaro",
     image: "/typaro.png",
     subtitle: "AI-integrated blogging platform · Team project",
     description:
-      "AI-integrated blogging platform built with a 3-person team. Owned frontend development end to end ,engineered GSAP ScrollTrigger and Lenis animations, a custom theme toggle, a filterable blog listing with search, page transitions, protected routes, and loading skeletons.",
+      "AI-integrated blogging platform built with a 3-person team. Owned frontend development end to end, engineered GSAP ScrollTrigger and Lenis animations, a custom theme toggle, a filterable blog listing with search, page transitions, protected routes, and loading skeletons.",
     tags: ["Next.js", "Tailwind CSS", "TypeScript", "PostgreSQL", "Gemini API"],
     url: "typaro.vercel.app",
     live: "https://typaro.vercel.app/",
@@ -64,7 +63,7 @@ const ProjectCard = ({ project, flip }) => {
         {project.tags.map((tag) => (
           <span
             key={tag}
-            className="text-xs text-white/60 bg-white/[0.06] border border-white/[0.1] rounded-full px-3 py-1"
+            className="text-xs text-white/60 bg-white/[0.06] border border-white/[0.1] rounded-full px-3 py-1 transition-colors duration-200 hover:border-white/25 hover:text-white/80"
           >
             {tag}
           </span>
@@ -76,7 +75,7 @@ const ProjectCard = ({ project, flip }) => {
           href={project.live}
           target="_blank"
           rel="noreferrer"
-          className="inline-flex items-center gap-1.5 text-sm font-semibold bg-[#4ade80] text-[#0d0d0d] px-4 py-2 rounded-md hover:bg-[#22c55e] transition-colors"
+          className="press-feedback inline-flex items-center gap-1.5 text-sm font-semibold bg-[#4ade80] text-[#0d0d0d] px-4 py-2 rounded-md hover:bg-[#22c55e] transition-colors"
         >
           Visit site ↗
         </a>
@@ -99,9 +98,11 @@ const ProjectCard = ({ project, flip }) => {
     </div>
   );
 
+  // Border and image now animate on the same 300ms curve on group-hover,
+  // instead of the image having no hover motion at all.
   const preview = (
-    <div className="relative">
-      <div className="bg-[#1a1a1a] rounded-xl overflow-hidden border border-white/[0.08]">
+    <div className="relative group">
+      <div className="bg-[#1a1a1a] rounded-xl overflow-hidden border border-white/[0.08] transition-colors duration-300 group-hover:border-white/[0.15]">
         <div className="flex items-center gap-2 px-4 py-3 border-b border-white/[0.06]">
           <span className="w-3 h-3 rounded-full bg-[#ff5f57]" />
           <span className="w-3 h-3 rounded-full bg-[#ffbd2e]" />
@@ -110,11 +111,13 @@ const ProjectCard = ({ project, flip }) => {
             {project.url}
           </div>
         </div>
-        <img
-          src={project.image}
-          alt={project.title}
-          className="w-full object-cover object-top"
-        />
+        <div className="overflow-hidden">
+          <img
+            src={project.image}
+            alt={project.title}
+            className="w-full object-cover object-top transition-transform duration-300 ease-out group-hover:scale-[1.02]"
+          />
+        </div>
       </div>
     </div>
   );
@@ -142,14 +145,14 @@ const Projects = () => {
       <p className="text-xs text-[#4ade80]/50 uppercase tracking-widest mb-3">
         What I've built
       </p>
-      <h2 className="text-4xl md:text-5xl font-bold mb-4">Projects</h2>
+      <h2 className="display-heading font-bold mb-4">Projects</h2>
 
       <div>
         {projects.map((project, i) => (
           <ProjectCard
             key={project.title}
             project={project}
-            flip={i % 2 == 0}
+            flip={i % 2 === 0}
           />
         ))}
       </div>
