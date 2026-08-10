@@ -1,12 +1,44 @@
 import emailjs from "@emailjs/browser";
 import React, { useRef, useState } from "react";
 
+const initialTouched = { user_name: false, user_email: false, message: false };
+
 const Contact = () => {
   const form = useRef();
-  const [status, setStatus] = useState("idle");
+  const [status, setStatus] = useState("idle"); // idle | sending | success | error
+  const [values, setValues] = useState({ user_name: "", user_email: "", message: "" });
+  const [touched, setTouched] = useState(initialTouched);
+
+  const validators = {
+    user_name: (v) => (v.trim().length === 0 ? "Name is required" : ""),
+    user_email: (v) =>
+      /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v) ? "" : "Enter a valid email address",
+    message: (v) => (v.trim().length < 10 ? "Message should be at least 10 characters" : ""),
+  };
+
+  const errors = {
+    user_name: validators.user_name(values.user_name),
+    user_email: validators.user_email(values.user_email),
+    message: validators.message(values.message),
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setValues((v) => ({ ...v, [name]: value }));
+  };
+
+  const handleBlur = (e) => {
+    const { name } = e.target;
+    setTouched((t) => ({ ...t, [name]: true }));
+  };
+
+  const hasErrors = Object.values(errors).some(Boolean);
 
   const sendEmail = (e) => {
     e.preventDefault();
+    setTouched({ user_name: true, user_email: true, message: true });
+    if (hasErrors) return;
+
     setStatus("sending");
 
     emailjs
@@ -14,7 +46,9 @@ const Contact = () => {
       .then(
         () => {
           setStatus("success");
-          e.target.reset();
+          form.current.reset();
+          setValues({ user_name: "", user_email: "", message: "" });
+          setTouched(initialTouched);
           setTimeout(() => setStatus("idle"), 4000);
         },
         () => {
@@ -24,6 +58,18 @@ const Contact = () => {
       );
   };
 
+  const fieldClass = (name) => {
+    const base =
+      "bg-white/[0.04] border rounded-lg px-4 py-3 text-sm text-white placeholder-white/20 focus:outline-none transition-colors";
+    if (touched[name] && errors[name]) {
+      return `${base} border-red-400/50 focus:border-red-400/70`;
+    }
+    if (touched[name] && !errors[name]) {
+      return `${base} border-[#4ade80]/40 focus:border-[#4ade80]/60`;
+    }
+    return `${base} border-white/[0.1] focus:border-[#4ade80]/40`;
+  };
+
   return (
     <section id="contact" className="py-20 border-t border-white/5">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
@@ -31,7 +77,7 @@ const Contact = () => {
           <p className="text-xs text-[#4ade80]/50 uppercase tracking-widest mb-3">
             Let's talk
           </p>
-          <h2 className="text-4xl md:text-5xl font-bold mb-5">Contact</h2>
+          <h2 className="display-heading font-bold mb-5">Contact</h2>
           <p className="text-white/50 text-base leading-relaxed max-w-sm">
             I'd love to hear about your project and how I could help. Fill in
             the form and I'll get back to you as soon as possible.
@@ -42,7 +88,7 @@ const Contact = () => {
               href="https://github.com/FarhanZizz/"
               target="_blank"
               rel="noreferrer"
-              className="flex items-center gap-3 text-sm text-white/40 hover:text-white/70 transition-colors group"
+              className="flex items-center gap-3 text-sm text-white/40 hover:text-white/70 transition-colors group press-feedback"
             >
               <span className="w-8 h-8 rounded-md bg-white/5 border border-white/[0.08] flex items-center justify-center group-hover:border-white/20 transition-colors">
                 <svg width="14" height="14" viewBox="0 0 25 24" fill="currentColor">
@@ -55,7 +101,7 @@ const Contact = () => {
               href="https://linkedin.com/in/farhan-zizz"
               target="_blank"
               rel="noreferrer"
-              className="flex items-center gap-3 text-sm text-white/40 hover:text-white/70 transition-colors group"
+              className="flex items-center gap-3 text-sm text-white/40 hover:text-white/70 transition-colors group press-feedback"
             >
               <span className="w-8 h-8 rounded-md bg-white/5 border border-white/[0.08] flex items-center justify-center group-hover:border-white/20 transition-colors">
                 <svg width="14" height="14" viewBox="0 0 25 24" fill="currentColor">
@@ -67,16 +113,21 @@ const Contact = () => {
           </div>
         </div>
 
-        <form ref={form} onSubmit={sendEmail} className="flex flex-col gap-4">
+        <form ref={form} onSubmit={sendEmail} noValidate className="flex flex-col gap-4">
           <div className="flex flex-col gap-1.5">
             <label className="text-xs text-white/30 uppercase tracking-wider">Name</label>
             <input
               type="text"
               name="user_name"
-              required
+              value={values.user_name}
+              onChange={handleChange}
+              onBlur={handleBlur}
               placeholder="Your name"
-              className="bg-white/[0.04] border border-white/[0.1] rounded-lg px-4 py-3 text-sm text-white placeholder-white/20 focus:outline-none focus:border-[#4ade80]/40 transition-colors"
+              className={fieldClass("user_name")}
             />
+            {touched.user_name && errors.user_name && (
+              <span className="text-xs text-red-400">{errors.user_name}</span>
+            )}
           </div>
 
           <div className="flex flex-col gap-1.5">
@@ -84,29 +135,42 @@ const Contact = () => {
             <input
               type="email"
               name="user_email"
-              required
+              value={values.user_email}
+              onChange={handleChange}
+              onBlur={handleBlur}
               placeholder="your@email.com"
-              className="bg-white/[0.04] border border-white/[0.1] rounded-lg px-4 py-3 text-sm text-white placeholder-white/20 focus:outline-none focus:border-[#4ade80]/40 transition-colors"
+              className={fieldClass("user_email")}
             />
+            {touched.user_email && errors.user_email && (
+              <span className="text-xs text-red-400">{errors.user_email}</span>
+            )}
           </div>
 
           <div className="flex flex-col gap-1.5">
             <label className="text-xs text-white/30 uppercase tracking-wider">Message</label>
             <textarea
               name="message"
-              required
+              value={values.message}
+              onChange={handleChange}
+              onBlur={handleBlur}
               rows={5}
               placeholder="Tell me about your project..."
-              className="bg-white/[0.04] border border-white/[0.1] rounded-lg px-4 py-3 text-sm text-white placeholder-white/20 focus:outline-none focus:border-[#4ade80]/40 transition-colors resize-none"
+              className={`${fieldClass("message")} resize-none`}
             />
+            {touched.message && errors.message && (
+              <span className="text-xs text-red-400">{errors.message}</span>
+            )}
           </div>
 
           <div className="flex items-center gap-4 mt-2">
             <button
               type="submit"
               disabled={status === "sending"}
-              className="text-sm font-semibold bg-[#4ade80] text-[#0d0d0d] px-6 py-2.5 rounded-md hover:bg-[#22c55e] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              className="press-feedback text-sm font-semibold bg-[#4ade80] text-[#0d0d0d] px-6 py-2.5 rounded-md hover:bg-[#22c55e] transition-colors disabled:opacity-60 disabled:cursor-not-allowed inline-flex items-center gap-2"
             >
+              {status === "sending" && (
+                <span className="w-3.5 h-3.5 border-2 border-[#0d0d0d]/30 border-t-[#0d0d0d] rounded-full animate-spin" />
+              )}
               {status === "sending" ? "Sending..." : "Send Message"}
             </button>
 
