@@ -24,9 +24,66 @@ html { scroll-behavior: smooth; }
 ::-webkit-scrollbar-thumb { background: #2a2a2a; border-radius: 3px; }
 ::-webkit-scrollbar-thumb:hover { background: #4ade80; }
 
+/* ---- Fluid display type ---- */
+/* Large headings scale continuously instead of jumping at a breakpoint,
+   and get tighter tracking/leading as they grow (Apple typography rule). */
+.display-heading {
+  font-size: clamp(2rem, 4.5vw + 1rem, 3rem);
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  font-optical-sizing: auto;
+}
+
+/* ---- Press feedback ---- */
+/* Every interactive element should react on press, not just hover/click-complete. */
+.press-feedback {
+  transition: transform 100ms ease-out, background-color 150ms ease, border-color 150ms ease, color 150ms ease;
+}
+.press-feedback:active {
+  transform: scale(0.97);
+}
+
 @keyframes fadeUp {
   from { opacity: 0; transform: translateY(20px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
 .fade-up { animation: fadeUp 0.5s ease forwards; }
+
+@keyframes pulseDot {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+@keyframes blinkCursor {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* ---- Reduced motion ---- */
+/* Respect the OS-level setting: replace movement with a simple fade,
+   drop overshoot/bounce, keep opacity changes that aid comprehension. */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .fade-up {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .hero-badge-dot,
+  .terminal-cursor {
+    animation: none !important;
+    opacity: 1 !important;
+  }
+
+  .press-feedback:active {
+    transform: none !important;
+  }
+}
