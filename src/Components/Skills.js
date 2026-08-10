@@ -25,13 +25,13 @@ const Skills = () => {
       <p className="text-xs text-[#4ade80]/50 uppercase tracking-widest mb-3">
         What I work with
       </p>
-      <h2 className="text-4xl md:text-5xl font-bold mb-12">Skills</h2>
+      <h2 className="display-heading font-bold mb-12">Skills</h2>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {skillGroups.map((group) => (
           <div
             key={group.category}
-            className="bg-white/[0.03] border border-white/[0.08] rounded-xl p-5 hover:border-white/[0.15] transition-colors"
+            className="bg-white/[0.03] border border-white/[0.08] rounded-xl p-5 transition-colors duration-200 hover:border-white/[0.15]"
           >
             <p className="text-xs text-[#4ade80]/70 font-semibold mb-4 uppercase tracking-wider">
               {group.category}
@@ -40,7 +40,7 @@ const Skills = () => {
               {group.skills.map((skill) => (
                 <span
                   key={skill}
-                  className="text-xs text-white/50 bg-white/5 border border-white/[0.08] rounded px-2.5 py-1"
+                  className="text-xs text-white/50 bg-white/5 border border-white/[0.08] rounded px-2.5 py-1 transition-colors duration-200 hover:border-white/20 hover:text-white/70"
                 >
                   {skill}
                 </span>
